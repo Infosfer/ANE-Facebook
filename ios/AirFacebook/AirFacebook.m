@@ -77,6 +77,9 @@ static AirFacebook *sharedInstance = nil;
         _appID = [appID retain];
         _urlSchemeSuffix = [urlSchemeSuffix retain];
         
+        Facebook *facebook = [[AirFacebook sharedInstance] facebook];
+        [facebook enableFrictionlessRequests];
+        
         // Open session if a token is in cache.
         FBSession *session = [[FBSession alloc] initWithAppID:appID permissions:nil urlSchemeSuffix:urlSchemeSuffix tokenCacheStrategy:nil];
         [FBSession setActiveSession:session];
@@ -99,6 +102,8 @@ static AirFacebook *sharedInstance = nil;
             Facebook *facebook = [[AirFacebook sharedInstance] facebook];
             facebook.accessToken = session.accessToken;
             facebook.expirationDate = session.expirationDate;
+            
+            [facebook reloadFrictionlessRecipientCache];
             
             [AirFacebook log:[NSString stringWithFormat:@"Session opened with permissions: %@", session.permissions]];
             FREDispatchStatusEventAsync(AirFBCtx, (const uint8_t *)"OPEN_SESSION_SUCCESS", (const uint8_t *)"OK");
@@ -127,6 +132,7 @@ static AirFacebook *sharedInstance = nil;
             facebook.expirationDate = nil;
             
             [AirFacebook log:@"INFO - Session closed"];
+            FREDispatchStatusEventAsync(AirFBCtx, (const uint8_t *)"OPEN_SESSION_ERROR", (const uint8_t *)@"Session closed");
         }
     };
 }
@@ -164,6 +170,9 @@ static AirFacebook *sharedInstance = nil;
         if (error)
         {
             [AirFacebook log:[NSString stringWithFormat:@"Request error: %@", [error description]]];
+            if (callback) {
+                FREDispatchStatusEventAsync(AirFBCtx, (const uint8_t *)[callback UTF8String], (const uint8_t *)[[NSString stringWithFormat:@"{ \"error\": \"%@\"", [error description]] UTF8String]);
+            }
         }
         else
         {
@@ -172,6 +181,9 @@ static AirFacebook *sharedInstance = nil;
             if (jsonError)
             {
                 [AirFacebook log:[NSString stringWithFormat:@"Request JSON error: %@", [jsonError description]]];
+                if (callback) {
+                    FREDispatchStatusEventAsync(AirFBCtx, (const uint8_t *)[callback UTF8String], (const uint8_t *)@"{ \"error\": \"Request JSON parser error\"}");
+                }
             }
             else
             {

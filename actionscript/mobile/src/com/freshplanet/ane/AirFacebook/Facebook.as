@@ -160,12 +160,8 @@ package com.freshplanet.ane.AirFacebook
 			var keys:Array = []; var values:Array = [];
 			for (var key:String in parameters)
 			{
-				var value:String = parameters[key] as String;
-				if (value)
-				{
-					keys.push(key); 
-					values.push(value);
-				}
+				keys.push(key);
+				values.push(parameters[key]);
 			}
 			
 			// Register the callback
@@ -182,12 +178,8 @@ package com.freshplanet.ane.AirFacebook
 			var keys:Array = []; var values:Array = [];
 			for (var key:String in parameters)
 			{
-				var value:String = parameters[key] as String;
-				if (value)
-				{
-					keys.push(key); 
-					values.push(value);
-				}
+				keys.push(key);
+				values.push(parameters[key]);
 			}
 			
 			// Register the callback
