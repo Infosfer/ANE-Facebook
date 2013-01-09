@@ -1,6 +1,11 @@
-<platform xmlns="http://ns.adobe.com/air/extension/3.1">
-    <sdkVersion>6.0</sdkVersion>
-    <linkerOptions>
+<platform xmlns="http://ns.adobe.com/air/extension/3.5">
+	<!-- <packagedDependencies> 
+	        <packagedDependency>FacebookSDK.framework</packagedDependency> 
+	</packagedDependencies>	  -->
+	<!-- The version of iOS SDK that the app should be linked with. Optional. -->
+	<sdkVersion>6.0</sdkVersion>
+
+	<linkerOptions>
         <option>-weak_framework Accounts</option> 
         <option>-weak_framework AdSupport</option>
         <option>-weak_framework Social</option>

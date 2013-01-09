@@ -16,7 +16,7 @@
 //  
 //////////////////////////////////////////////////////////////////////////////////////-->
 
-<extension xmlns="http://ns.adobe.com/air/extension/3.1">
+<extension xmlns="http://ns.adobe.com/air/extension/3.5">
   <id>com.freshplanet.AirFacebook</id>
   <versionNumber>1</versionNumber>
   <platforms>
@@ -29,22 +29,6 @@
         </applicationDeployment>
     </platform>
 
-    <platform name="iPhone-x86">
-        <applicationDeployment>
-            <nativeLibrary>libAirFacebook.a</nativeLibrary>
-            <initializer>AirFacebookInitializer</initializer> 
-            <finalizer>AirFacebookFinalizer</finalizer>
-        </applicationDeployment>
-    </platform>
-
-    <platform name="Android-ARM"> 
-        <applicationDeployment> 
-            <nativeLibrary>libAirFacebook.jar</nativeLibrary> 
-            <initializer>com.freshplanet.ane.AirFacebook.AirFacebookExtension</initializer> 
-            <finalizer>com.freshplanet.ane.AirFacebook.AirFacebookExtension</finalizer> 
-        </applicationDeployment> 
-    </platform> 
-    
     <platform name="default"> 
         <applicationDeployment/> 
     </platform> 
